@@ -1,3 +1,4 @@
+# https://pytorch.org/tutorials/beginner/basics/data_tutorial.html
 import torch
 from torch.utils.data import Dataset
 from torchvision import datasets
@@ -38,11 +39,16 @@ cols, rows = 3, 3
 for i in range(1, cols * rows + 1):
     sample_idx = torch.randint(len(training_data), size=(1,)).item() 
     # randint : Returns a tensor filled with random integers generated uniformly between low (inclusive) and high (exclusive).
+    # size (tuple) – a tuple defining the shape of the output tensor.
     # (1,) represents the shape of a one-dimensional array with a single element
-    # item() : Returns the value of this tensor as a standard Python numberw
+    # item() : Returns the value of this tensor as a standard Python number
+    # This only works for tensors with one element.
     img, label = training_data[sample_idx]
     figure.add_subplot(rows, cols, i) 
+    # (int, int, index) :  
+    # The subplot will take the index position on a grid with nrows rows and ncols columns. 
     plt.title(labels_map[label])
     plt.axis("off")
     plt.imshow(img.squeeze(), cmap="gray")
 plt.show()
+
