@@ -1,4 +1,5 @@
 # https://pytorch.org/tutorials/beginner/basics/data_tutorial.html
+
 import torch
 from torch.utils.data import Dataset
 from torchvision import datasets
@@ -50,5 +51,45 @@ for i in range(1, cols * rows + 1):
     plt.title(labels_map[label])
     plt.axis("off")
     plt.imshow(img.squeeze(), cmap="gray")
+    # numpy.squeeze(a, axis=None)
+    # Remove axes of length one from a ( all or a subset of the dimensions of length 1 removed.)
 plt.show()
 
+from torch.utils.data import DataLoader
+
+train_dataloader = DataLoader(training_data, batch_size=64, shuffle=True)
+test_dataloader = DataLoader(test_data, batch_size=64, shuffle=True)
+
+# batch_size (int, optional) – how many samples per batch to load (default: 1).
+# shuffle (bool, optional) – set to True to have the data reshuffled at every epoch (default: False).
+
+'''
+import os
+import pandas as pd
+from torchvision.io import read_image
+
+class CustomImageDataset(Dataset):
+    def __init__(self, annotations_file, img_dir, transform=None, target_transform=None):
+        self.img_labels = pd.read_csv(annotations_file)
+        # DataFrame or TextFileReader
+        # A comma-separated values (csv) file is returned as two-dimensional data structure with labeled axes.
+        self.img_dir = img_dir
+        self.transform = transform
+        self.target_transform = target_transform
+
+    def __len__(self):
+        # The __len__ function returns the number of samples in our dataset.
+        return len(self.img_labels)
+
+    def __getitem__(self, idx):
+        # The __getitem__ function loads and returns a sample from the dataset at the given index idx. 
+        img_path = os.path.join(self.img_dir, self.img_labels.iloc[idx, 0])
+        # iloc[] : Purely integer-location based indexing for selection by position.
+        image = read_image(img_path)
+        label = self.img_labels.iloc[idx, 1]
+        if self.transform:
+            image = self.transform(image)
+        if self.target_transform:
+            label = self.target_transform(label)
+        return image, label
+'''
