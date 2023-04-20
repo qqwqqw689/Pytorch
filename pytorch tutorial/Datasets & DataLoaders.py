@@ -63,6 +63,16 @@ test_dataloader = DataLoader(test_data, batch_size=64, shuffle=True)
 # batch_size (int, optional) – how many samples per batch to load (default: 1).
 # shuffle (bool, optional) – set to True to have the data reshuffled at every epoch (default: False).
 
+# Display image and label.
+train_features, train_labels = next(iter(train_dataloader))
+print(f"Feature batch shape: {train_features.size()}")
+print(f"Labels batch shape: {train_labels.size()}")
+img = train_features[0].squeeze()
+label = train_labels[0]
+plt.imshow(img, cmap="gray")
+plt.show()
+print(f"Label: {label}")
+
 '''
 import os
 import pandas as pd
