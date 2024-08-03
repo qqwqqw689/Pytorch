@@ -47,6 +47,9 @@ def imshow(img):
 
 
 # get some random training images
+# Iterable-style datasets
+# when called iter(dataset), could return a stream of data reading from a database,
+# a remote server, or even logs generated in real time.
 dataiter = iter(trainloader)
 images, labels = next(dataiter)
 
@@ -64,7 +67,11 @@ import torch.nn.functional as F
 class Net(nn.Module):
     def __init__(self):
         super().__init__()
+        # torch.Size([4, 3, 32, 32])
+        # Applies a 2D convolution over an input signal composed of several input planes.
+        # in_channels, out_channels, kernel_size
         self.conv1 = nn.Conv2d(3, 6, 5)
+        # torch.Size([4, 6, 28, 28])
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 5)
         self.fc1 = nn.Linear(16 * 5 * 5, 120)
